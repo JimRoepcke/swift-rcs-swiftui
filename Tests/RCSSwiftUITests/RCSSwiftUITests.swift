@@ -6,7 +6,7 @@ final class RCSSwiftUITests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(RCSSwiftUI().text, "Hello, World!")
+        XCTAssertEqual(42, 42)
     }
 
     static var allTests = [
