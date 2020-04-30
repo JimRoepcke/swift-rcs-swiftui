@@ -8,6 +8,27 @@
 import Foundation
 import SwiftUI
 
+public struct RCSActivityIndicator: UIViewRepresentable {
+
+  private var isAnimating: Bool
+  private let style: UIActivityIndicatorView.Style
+
+  public init(isAnimating: Bool, style: UIActivityIndicatorView.Style) {
+    self.isAnimating = isAnimating
+    self.style = style
+  }
+
+  public func makeUIView(context: UIViewRepresentableContext<RCSActivityIndicator>) -> UIActivityIndicatorView {
+    UIActivityIndicatorView(style: style)
+  }
+
+  public func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<RCSActivityIndicator>) {
+    isAnimating
+      ? uiView.startAnimating()
+      : uiView.stopAnimating()
+  }
+}
+
 public struct RCSPageControl: UIViewRepresentable {
 
   private let numberOfPages: Int
