@@ -12,6 +12,7 @@ import ComposableArchitecture
 public struct RCSCarouselView<T: Hashable & Identifiable, Content: View>: View {
 
   let store: RCSCarouselView.Store
+  let horizontalPadding: CGFloat?
   let action: (State.Item) -> Void
   let elementContent: (State.Item) -> Content
 
@@ -19,10 +20,12 @@ public struct RCSCarouselView<T: Hashable & Identifiable, Content: View>: View {
 
   public init(
     store: RCSCarouselView.Store,
+    horizontalPadding: CGFloat?,
     action: @escaping (State.Item) -> Void,
     elementContent: @escaping (State.Item) -> Content
   ) {
     self.store = store
+    self.horizontalPadding = horizontalPadding
     self.action = action
     self.elementContent = elementContent
   }
@@ -50,6 +53,7 @@ public struct RCSCarouselView<T: Hashable & Identifiable, Content: View>: View {
         }
         .frame(width: geometry.size.width)
       }
+      .padding(.horizontal, self.horizontalPadding)
     }
   }
 }

@@ -54,8 +54,8 @@ public extension RCSCarouselView {
     private var visibleRange: Range<Int> {
       Range<Int>(
         uncheckedBounds: (
-          lower: displayed - 1,
-          upper: displayed + 2
+          lower: displayed - 2,
+          upper: displayed + 3
         )
       ).clamped(to: elements.indices)
     }
