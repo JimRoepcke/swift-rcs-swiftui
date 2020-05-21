@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "swift-composable-architecture",
+        "repositoryURL": "https://github.com/JimRoepcke/swift-composable-architecture.git",
+        "state": {
+          "branch": "master",
+          "revision": "43c74a1c89147d5739b3e8c67534c3acf4ce4278",
+          "version": null
+        }
+      },
+      {
+        "package": "RCSFoundation",
+        "repositoryURL": "https://github.com/JimRoepcke/swift-rcs-foundation.git",
+        "state": {
+          "branch": "master",
+          "revision": "49ad475f81d343c8e1d666a85ba1dab13652682b",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
