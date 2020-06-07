@@ -55,6 +55,7 @@ public struct RCSUITextField: UIViewRepresentable {
   @ObservedObject var viewStore: ViewStore<State, Action>
 
   let isSecureTextEntry: Bool
+  let font: UIFont?
   let placeholder: String?
   let borderStyle: BorderStyle
   let keyboardType: UIKeyboardType?
@@ -64,6 +65,7 @@ public struct RCSUITextField: UIViewRepresentable {
   public init(
     viewStore: ViewStore<State, Action>,
     isSecureTextEntry: Bool = false,
+    font: UIFont?,
     placeholder: String?,
     borderStyle: BorderStyle = .none,
     keyboardType: UIKeyboardType? = nil,
@@ -72,6 +74,7 @@ public struct RCSUITextField: UIViewRepresentable {
   ) {
     self.viewStore = viewStore
     self.isSecureTextEntry = isSecureTextEntry
+    self.font = font
     self.placeholder = placeholder
     self.borderStyle = borderStyle
     self.keyboardType = keyboardType
@@ -121,6 +124,9 @@ public struct RCSUITextField: UIViewRepresentable {
     textField.isSecureTextEntry = self.isSecureTextEntry
     textField.viewStore = self.viewStore
     textField.borderStyle = self.borderStyle.asUITextFieldBorderStyle
+    if let it = self.font {
+      textField.font = it
+    }
     if let it = self.keyboardType {
       textField.keyboardType = it
     }
