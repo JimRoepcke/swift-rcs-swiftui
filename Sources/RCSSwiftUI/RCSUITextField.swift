@@ -18,9 +18,9 @@ public struct RCSUITextField: UIViewRepresentable {
     fileprivate var isRequestingToBecomeFirstResponder: Bool
     fileprivate var isRequestingToResignFirstResponder: Bool
 
-    public init(text: String) {
+    public init(text: String, isFirstResponder: Bool = false) {
       self.text = text
-      self.isFirstResponder = false
+      self.isFirstResponder = isFirstResponder
       self.isRequestingToBecomeFirstResponder = false
       self.isRequestingToResignFirstResponder = false
     }
