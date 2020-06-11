@@ -18,7 +18,7 @@ let package = Package(
     // Dependencies declare other packages that this package depends on.
     // .package(url: /* package url */, from: "1.0.0"),
     .package(name: "RCSFoundation", url: "https://github.com/JimRoepcke/swift-rcs-foundation.git", .branch("master")),
-    .package(name: "swift-composable-architecture", url: "https://github.com/JimRoepcke/swift-composable-architecture.git", .branch("master"))
+    .package(name: "swift-composable-architecture", url: "https://github.com/pointfreeco/swift-composable-architecture.git", .exact("0.3.0"))
   ],
   targets: [
     // Targets are the basic building blocks of a package. A target can define a module or a test suite.

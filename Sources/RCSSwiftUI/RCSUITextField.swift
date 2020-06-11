@@ -33,7 +33,7 @@ public struct RCSUITextField: UIViewRepresentable {
     case textChanged(String)
   }
 
-  public static let reducer: Reducer<State, Action, Void> = .init { state, action, _ -> Effect<Action> in
+  public static let reducer: Reducer<State, Action, Void> = .init { state, action, _ -> Effect<Action, Never> in
     switch action {
     case .becomeFirstResponder:
       state.isRequestingToBecomeFirstResponder = true
