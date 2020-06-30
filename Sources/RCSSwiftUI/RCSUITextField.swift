@@ -14,37 +14,38 @@ public struct RCSUITextField: UIViewRepresentable {
 
   public struct State: Hashable {
     public var text: String
-    public fileprivate(set) var isFirstResponder: Bool
-    fileprivate var isRequestingToBecomeFirstResponder: Bool
-    fileprivate var isRequestingToResignFirstResponder: Bool
 
-    public init(text: String, isFirstResponder: Bool = false) {
+    public enum FirstResponderStatus {
+      case inactive
+      case becomingActive
+      case active
+      case becomingInactive
+    }
+    public var firstResponderStatus: FirstResponderStatus
+
+    public init(text: String) {
       self.text = text
-      self.isFirstResponder = isFirstResponder
-      self.isRequestingToBecomeFirstResponder = false
-      self.isRequestingToResignFirstResponder = false
+      self.firstResponderStatus = .inactive
     }
   }
 
   public enum Action {
     case becomeFirstResponder
     case resignFirstResponder
-    case isFirstResponderChanged(Bool)
+    case firstResponderStatusChanged(State.FirstResponderStatus)
     case textChanged(String)
   }
 
   public static let reducer: Reducer<State, Action, Void> = .init { state, action, _ -> Effect<Action, Never> in
     switch action {
     case .becomeFirstResponder:
-      state.isRequestingToBecomeFirstResponder = true
+      state.firstResponderStatus = .becomingActive
       return .none
     case .resignFirstResponder:
-      state.isRequestingToResignFirstResponder = true
+      state.firstResponderStatus = .becomingInactive
       return .none
-    case .isFirstResponderChanged(let it):
-      state.isFirstResponder = it
-      state.isRequestingToBecomeFirstResponder = false
-      state.isRequestingToResignFirstResponder = false
+    case .firstResponderStatusChanged(let status):
+      state.firstResponderStatus = status
     case .textChanged(let it):
       state.text = it
     }
@@ -108,13 +109,13 @@ public struct RCSUITextField: UIViewRepresentable {
 
     override func becomeFirstResponder() -> Bool {
       let result = super.becomeFirstResponder()
-      viewStore?.send(.isFirstResponderChanged(isFirstResponder))
+      viewStore?.send(.firstResponderStatusChanged(result ? .active : .inactive))
       return result
     }
 
     override func resignFirstResponder() -> Bool {
       let result = super.resignFirstResponder()
-      viewStore?.send(.isFirstResponderChanged(isFirstResponder))
+      viewStore?.send(.firstResponderStatusChanged(result ? .active : .inactive))
       return result
     }
   }
@@ -150,11 +151,11 @@ public struct RCSUITextField: UIViewRepresentable {
 
   public func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<RCSUITextField>) {
     uiView.text = viewStore.state.text
-    if viewStore.state.isRequestingToBecomeFirstResponder, uiView.window != nil {
+    if viewStore.state.firstResponderStatus == .becomingActive, uiView.window != nil {
       DispatchQueue.main.async {
         uiView.becomeFirstResponder()
       }
-    } else if viewStore.isRequestingToResignFirstResponder, uiView.window != nil {
+    } else if viewStore.firstResponderStatus == .becomingInactive, uiView.window != nil {
       DispatchQueue.main.async {
         uiView.resignFirstResponder()
       }
