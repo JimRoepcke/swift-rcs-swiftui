@@ -20,11 +20,11 @@
         }
       },
       {
-        "package": "RCSFoundation",
+        "package": "swift-rcs-foundation",
         "repositoryURL": "https://github.com/JimRoepcke/swift-rcs-foundation.git",
         "state": {
           "branch": "master",
-          "revision": "99e9a0027f3f461a2f5b5de6a3c41bbb8c0dd636",
+          "revision": "5e51abc955e7c1c657950415bd2a642cc8bb64b6",
           "version": null
         }
       }

@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "RCSSwiftUI",
+  name: "swift-rcs-swiftui",
   platforms: [
     .iOS(.v13)
   ],
@@ -17,7 +17,7 @@ let package = Package(
   dependencies: [
     // Dependencies declare other packages that this package depends on.
     // .package(url: /* package url */, from: "1.0.0"),
-    .package(name: "RCSFoundation", url: "https://github.com/JimRoepcke/swift-rcs-foundation.git", .branch("master")),
+    .package(name: "swift-rcs-foundation", url: "https://github.com/JimRoepcke/swift-rcs-foundation.git", .branch("master")),
     .package(name: "swift-composable-architecture", url: "https://github.com/pointfreeco/swift-composable-architecture.git", .exact("0.3.0"))
   ],
   targets: [
@@ -26,7 +26,7 @@ let package = Package(
     .target(
       name: "RCSSwiftUI",
       dependencies: [
-        "RCSFoundation",
+        .product(name: "RCSFoundation", package: "swift-rcs-foundation"),
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
