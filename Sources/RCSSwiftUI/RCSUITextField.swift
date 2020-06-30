@@ -109,13 +109,21 @@ public struct RCSUITextField: UIViewRepresentable {
 
     override func becomeFirstResponder() -> Bool {
       let result = super.becomeFirstResponder()
-      viewStore?.send(.firstResponderStatusChanged(result ? .active : .inactive))
+      // this needs to be async because it can happen while another action
+      // is being processed and TCA doesn't support recursion
+      DispatchQueue.main.async { [weak viewStore] in
+        viewStore?.send(.firstResponderStatusChanged(result ? .active : .inactive))
+      }
       return result
     }
 
     override func resignFirstResponder() -> Bool {
       let result = super.resignFirstResponder()
-      viewStore?.send(.firstResponderStatusChanged(result ? .active : .inactive))
+      // this needs to be async because it can happen while another action
+      // is being processed and TCA doesn't support recursion
+      DispatchQueue.main.async { [weak viewStore] in
+        viewStore?.send(.firstResponderStatusChanged(result ? .active : .inactive))
+      }
       return result
     }
   }
